@@ -25,6 +25,14 @@ const thePeople = [];
 app.get("/people", (req, res) => {
   res.status(200).send(thePeople);
 });
+function checkExist(person){
+    for (let i = 0; i < thePeople.length; i++) {
+        if (person.last === thePeople[i].last && person.first === thePeople[i].first) {
+            return true
+        }
+    }
+    return false
+}
 app.post("/add", (req, res) => {
   let person = req.body;
 
@@ -32,12 +40,11 @@ app.post("/add", (req, res) => {
     thePeople.push(person);
     res.status(200).send(person);
   } else {
-    thePeople.forEach((element) => {
       if (thePeople.length > 0) {
-        if (person.last === element.last && person.first === element.first) {
+        if (checkExist(person)===false) {
           rollbar.critical("Already in use");
           res.status(400).send("Already in use");
-        } else if (person.text === "yellow" &&person.last !== element.last && person.first !== element.first) {
+        } else if (person.text === "yellow" &&checkExist(person)===false) {
           rollbar.warning("bad color choice");
           thePeople.push(person);
           res.status(200).send(person);
@@ -46,7 +53,6 @@ app.post("/add", (req, res) => {
           res.status(200).send(person);
         }
       }
-    });
   }
 });
 try {
