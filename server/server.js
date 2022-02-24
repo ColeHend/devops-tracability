@@ -35,8 +35,8 @@ app.post("/add", (req, res) => {
     thePeople.forEach((element) => {
       if (thePeople.length > 0) {
         if (person.last === element.last && person.first === element.first) {
-          rollbar.critical("Already exists");
-          res.status(400).send("Already exists");
+          rollbar.critical("Already in use");
+          res.status(400).send("Already in use");
         } else if (person.text === "yellow" &&person.last !== element.last && person.first !== element.first) {
           rollbar.warning("bad color choice");
           thePeople.push(person);
