@@ -38,7 +38,6 @@ function handle(e) {
     .then(res =>{
         console.log(res.data);
         if (typeof res.data==='object') {
-            console.log('true');
             addToDiv(res.data)
         }
     })
