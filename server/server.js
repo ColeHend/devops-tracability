@@ -22,37 +22,42 @@ app.get("/", (req, res) => {
 });
 
 const thePeople = [];
+function checkExist(person) {
+  for (let i = 0; i < thePeople.length; i++) {
+    if (
+      person.last === thePeople[i].last &&
+      person.first === thePeople[i].first
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
 app.get("/people", (req, res) => {
   res.status(200).send(thePeople);
 });
-function checkExist(person){
-    for (let i = 0; i < thePeople.length; i++) {
-        if (person.last === thePeople[i].last && person.first === thePeople[i].first) {
-            return true
-        }
-    }
-    return false
-}
+
 app.post("/add", (req, res) => {
   let person = req.body;
-
+  let checkPerson = checkExist(person);
+  
   if (thePeople.length === 0) {
     thePeople.push(person);
     res.status(200).send(person);
   } else {
-      if (thePeople.length > 0) {
-        if (checkExist(person)===false) {
-          rollbar.critical("Already in use");
-          res.status(400).send("Already in use");
-        } else if (person.text === "yellow" &&checkExist(person)===false) {
-          rollbar.warning("bad color choice");
-          thePeople.push(person);
-          res.status(200).send(person);
-        } else {
-          thePeople.push(person);
-          res.status(200).send(person);
-        }
+    if (thePeople.length > 0) {
+      if (checkPerson === true) {
+        rollbar.critical("Already in use");
+        res.status(400).send("Already in use");
+      } else if (person.text === "yellow" && checkPerson === false) {
+        rollbar.warning("bad color choice");
+        thePeople.push(person);
+        res.status(200).send(person);
+      } else {
+        thePeople.push(person);
+        res.status(200).send(person);
       }
+    }
   }
 });
 try {
