@@ -38,7 +38,10 @@ function handle(e) {
     .then(res =>{
         console.log(res.data);
         if (typeof res.data==='object') {
-            addToDiv(res.data)
+            content.innerHTML='';
+            res.data.forEach(element => {
+                addToDiv(element)
+            });
         }
     })
     .catch(err=>console.log(err))

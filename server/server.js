@@ -53,10 +53,10 @@ app.post("/add", (req, res) => {
       } else if (person.text === "yellow" && checkPerson === false) {
         rollbar.warning("bad color choice");
         thePeople.push(person);
-        res.status(200).send(person);
+        res.status(200).send(thePeople);
       } else {
         thePeople.push(person);
-        res.status(200).send(person);
+        res.status(200).send(thePeople);
       }
     }
   }
