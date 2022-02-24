@@ -22,39 +22,39 @@ app.get("/", (req, res) => {
 });
 
 const thePeople = [];
-app.get('/people',(req,res)=>{
-    res.status(200).send(thePeople);
-})
+app.get("/people", (req, res) => {
+  res.status(200).send(thePeople);
+});
 app.post("/add", (req, res) => {
   let person = req.body;
 
-  
-    if (thePeople.length === 0){
-        thePeople.push(person)
-        res.status(200).send(person);
-    } else{
-        thePeople.forEach((element) => {
-            if (thePeople.length > 0) {
-              if (person.last === element.last&&person.first === element.first ) {
-                rollbar.critical("Already exists");
-                res.status(400).send("Already exists");
-              } else if (person.text === 'yellow'){
-                  rollbar.warning('bad color choice');
-                  thePeople.push(person);
-                res.status(200).send(person);
-              } else{
-                thePeople.push(person)
-                res.status(200).send(person); 
-            }
-            }});
-    }
+  if (thePeople.length === 0) {
+    thePeople.push(person);
+    res.status(200).send(person);
+  } else {
+    thePeople.forEach((element) => {
+      if (thePeople.length > 0) {
+        if (person.last === element.last && person.first === element.first) {
+          rollbar.critical("Already exists");
+          res.status(400).send("Already exists");
+        } else if (person.text === "yellow" &&person.last !== element.last && person.first !== element.first) {
+          rollbar.warning("bad color choice");
+          thePeople.push(person);
+          res.status(200).send(person);
+        } else {
+          thePeople.push(person);
+          res.status(200).send(person);
+        }
+      }
+    });
+  }
 });
 try {
-    funky()
+  funky();
 } catch (error) {
-    console.log(error)
+  rollbar.log(error);
 }
-app.use(rollbar.errorHandler())
+app.use(rollbar.errorHandler());
 
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
