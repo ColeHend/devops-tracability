@@ -11,6 +11,10 @@ function addToDiv() {
     content.appendChild(newDiv)
 }
 
-axios.post('/add',inputField.value)
-.then(res =>{rollbar.log(res)})
+axios.post('/add',{inputField: inputField.value})
+.then(res =>{
+    if (res.data[0]===true) {
+        addDiv()
+    }
+})
 .catch(err=>console.log(err.response.data))

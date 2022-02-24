@@ -22,7 +22,8 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/add',(req,res)=>{
-    
+    let {inputField} = req.body
+    res.status(200).send(true)
 })
 
 app.listen(port,()=>{
