@@ -21,6 +21,10 @@ app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'../public/index.html'))
 })
 
+app.post('/add',(req,res)=>{
+    
+})
+
 app.listen(port,()=>{
     console.log(`listening on port: ${port}`);
 })
