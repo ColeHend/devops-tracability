@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <header></header>
     <main>
-        <div id="additionDiv">
-            <form id='theForm' action="/add" method="post">
-                <input type="text" id="inputField">
-                <input type="submit" value="Add!">
-            </form>
-            <div id="content">
-
-            </div>
-        </div>
+      <div id="additionDiv">
+        <form id="theForm" action="/add" method="post">
+          <input
+            type="text"
+            class="inputField"
+            id="inputField"
+            placeholder="first name"
+          />
+          <input
+            type="text"
+            class="inputField"
+            id="inputField2"
+            placeholder="last name"
+          />
+          <input
+            type="text"
+            class="inputField"
+            id="inputField3"
+            placeholder="color"
+          />
+          <input type="submit" class="inputField" value="Add!" />
+        </form>
+        <div id="content"></div>
+      </div>
     </main>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>

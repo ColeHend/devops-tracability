@@ -1,24 +1,48 @@
-const inputField = document.getElementById('inputField');
+const firstName = document.getElementById('inputField');
+const lastName = document.getElementById('inputField2');
+const text = document.getElementById('inputField3');
+
 const addDiv = document.getElementById('additionDiv');
 const content = document.getElementById('content')
 const theForm = document.getElementById('theForm')
-function addToDiv() {
+
+function addToDiv(person) {
     let newDiv = document.createElement('div')
     newDiv.classList.toggle('contentItemBox',true)
     let textWr = document.createElement('p')
-    textWr.textContent = inputField.value
+    textWr.textContent = person.first+' '+person.last
     newDiv.appendChild(textWr)
+    newDiv.style.backgroundColor = person.text
     content.appendChild(newDiv)
+    console.log('ran');
 }
-
+function getAll() {
+    // e.preventDefault()
+    axios.get('/people')
+    .then(res =>{
+            console.log(res.data);
+            res.data.forEach(element => {
+                addToDiv(element)
+            });
+    })
+    .catch(err=>console.log(err))
+}getAll()
 function handle(e) {
     e.preventDefault()
-    axios.post('/add',{inputField: inputField.value})
+    let sendObj = {
+        first: firstName.value,
+        last: lastName.value,
+        text: text.value,
+    }
+    axios.post('/add',sendObj)
     .then(res =>{
-        if (res.data[0]===true) {
-            addDiv()
+        console.log(res.data);
+        if (typeof res.data==='object') {
+            console.log('true');
+            addToDiv(res.data)
         }
     })
-    .catch(err=>console.log(err.response.data))
+    .catch(err=>console.log(err))
 }
 theForm.addEventListener('submit',handle)
+

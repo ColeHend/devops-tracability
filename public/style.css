@@ -1,0 +1,22 @@
+#theForm{
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+    
+}
+.inputField{
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#content{
+    display: flex;
+    justify-content: space-around;
+}
+
+.contentItemBox{
+    width: 25%;
+    height: 5%;
+    border: 1px solid #000;
+
+}
