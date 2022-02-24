@@ -36,8 +36,12 @@ app.post("/add", (req, res) => {
         thePeople.forEach((element) => {
             if (thePeople.length > 0) {
               if (person.last === element.last&&person.first === element.first ) {
-                rollbar.error("Already exists");
+                rollbar.critical("Already exists");
                 res.status(400).send("Already exists");
+              } else if (person.text === 'yellow'){
+                  rollbar.warning('bad color choice');
+                  thePeople.push(person);
+                res.status(200).send(person);
               } else{
                 thePeople.push(person)
                 res.status(200).send(person); 
@@ -45,6 +49,12 @@ app.post("/add", (req, res) => {
             }});
     }
 });
+try {
+    funky()
+} catch (error) {
+    console.log(error)
+}
+app.use(rollbar.errorHandler())
 
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
